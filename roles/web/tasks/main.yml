@@ -1,0 +1,6 @@
+- name: Copy app.py to appropriate location
+  debug:
+    msg: 'Copy files'
+
+- name: 'start app.py'
+  shell: FLASK_APP=/root/app.py flask run --host=0.0.0.0 &
