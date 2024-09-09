@@ -2,18 +2,23 @@
   shell: sudo wget https://dev.mysql.com/get/mysql80-community-release-el9-1.noarch.rpm
   become: true
 
+- name: import keys for mysql
+  shell: rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2023
+  become: true
+
 - name: install mysql rpm
   shell: dnf install mysql80-community-release-el9-1.noarch.rpm -y
   become: true
 
-- name: import keys for mysql
-  shell: rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2023
+- name: install mysql server
+  shell: sudo dnf install mysql-community-server -y
   become: true
 
 - name: 'start mysql service'
   service:
     name: mysqld
     state: started
+  become: true
 
 - name: Create new db
   debug:
