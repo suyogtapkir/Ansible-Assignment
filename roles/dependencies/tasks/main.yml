@@ -4,7 +4,9 @@
     state: present
   with_items:
     - python3-pip
+  become: true
     
 - name: 'Install mysql-flask module'
   pip:
     name: flask-mysql
+  become: true
