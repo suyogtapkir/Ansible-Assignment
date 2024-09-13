@@ -1,6 +1,18 @@
-- name: Copy app.py to appropriate location
-  debug:
-    msg: 'Copy files'
+- name: install git
+  yum:
+    name: git
+  become: true
+
+- name: create directory
+  file:
+    path: /var/tmp/app
+    state: directory
+
+- name: checkout git repo
+  git:
+    repo: https://github.com/suyogtapkir/simple-webapp-flask
+    dest: /var/tmp/app
 
 - name: 'start app.py'
-  shell: FLASK_APP=/root/app.py flask run --host=0.0.0.0 &
+  shell: FLASK_APP=/var/tmp/app/app.py nohup flask run --host=0.0.0.0 &
+  become: true
